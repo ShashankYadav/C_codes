@@ -1,0 +1,331 @@
+#include<stdio.h>
+#include<string.h>
+#include<malloc.h>
+char z[100],m,u;
+typedef struct op
+{
+	char ch;
+	struct op *next;
+}o;
+typedef struct cha
+{
+	char ch[50];
+	struct cha *next;
+}c;
+void printo(o *start)
+{
+	printf("printo\n");
+	if(start==NULL)
+		return;
+	o *temp;
+	temp=start;
+	while(start->next!=NULL)
+	{
+		printf("%c ",start->ch);
+		start=start->next;
+	}
+	printf("%c\n",start->ch);
+	start=temp;
+	return ;
+}
+void printc(c *start)
+{
+	printf("printc\n");
+	if(start==NULL)
+		return;
+	c *temp;
+	temp=start;
+	while(start->next!=NULL)
+	{
+		printf("%s ",start->ch);
+		start=start->next;
+	}
+	printf("%s\n",start->ch);
+	start=temp;
+	return ;
+}
+c* pushchu(c *start,char *s)
+{
+	c *temp;
+	temp=start;
+	c *new=(c*)malloc(sizeof(c));
+	strcpy(new->ch,s);
+	new->next=NULL;
+	//printf("entered pushchu\n");
+	//printf("%s\n",s);
+	if(start==NULL)
+	{
+		
+		//printf("exitd pushchu\n");
+		return new;
+	}
+	//printf("start!=NULL\n");
+	while(start->next!=NULL)
+	{
+		start=start->next;
+	}
+	start->next=new;
+	start=temp;
+	//printc(start);
+	return temp;
+}
+o* pusho(o *start,char ci)
+{
+	o *temp;
+	temp=start;
+	o *new=(o*)malloc(sizeof(o));
+	if(start==NULL)
+	{
+		start=(o*)malloc(sizeof(o));
+		start->ch=ci;
+		start->next=NULL;
+		return start;
+	}
+	while(start->next!=NULL)
+	{
+		start=start->next;
+	}
+	new->ch=ci;
+	new->next=NULL;
+	start->next=new;
+	//printo(temp);
+	return temp;
+}
+o* popo(o *start)
+{
+	o *temp;
+	temp=start;
+	if(start==NULL)
+	{
+		u='%';
+		return NULL;
+	}
+	if(start->next==NULL)
+	{
+		u='%';
+		m=start->ch;
+		return NULL;
+	}
+	while(start->next->next!=NULL)
+	{
+		start=start->next;
+	}
+	m=start->next->ch;
+	start->next=NULL;
+//	printo(temp);
+	return temp;
+}
+c* popchu(c *start)
+{
+	c *temp;
+	temp=start;
+	if(start==NULL)
+	{
+		u='%';
+		return NULL;
+	}
+	if(start->next==NULL)
+	{
+		strcpy(z,start->ch);
+		u='%';
+		return NULL;
+	}
+	while(start->next->next!=NULL)
+	{
+		start=start->next;
+	}
+	strcpy(z,start->next->ch);
+	start->next=NULL;
+//	printc(temp);
+	return temp;
+}
+int main()
+{
+	int k,times;
+	char cham;
+	
+	scanf("%d%c",&times,&cham);
+	for(k=0;k<times;k++)
+	{
+		c *chuchu=(c*)malloc(sizeof(c));
+		o *opera=(o*)malloc(sizeof(o));
+		opera->next=NULL;
+		chuchu->next=NULL;
+		int l=0,i=0,len;
+		char s[1000],s1[1000];
+		scanf("%[^\n]%c",s1,&cham);
+		len=strlen(s1);
+		char ch,string[50],str1[50],str2[50],d[2];
+		for(i=0;i<len;i++)
+		{
+			//printf("i: %d s1[i]: %c\n",i,s1[i]);
+			if(s1[i]==' ')
+				continue;
+			if(s1[i]!='+'&&s1[i]!='-'&&s1[i]!='*'&&s1[i]!='/')
+			{
+				d[0]=s1[i];
+				d[1]='\0';
+				//printf("number:%c\n",s1[i]);
+				chuchu->next=pushchu(chuchu->next,d);
+			}
+			else
+			{
+				switch(s1[i])
+				{
+					case '/': u='0';
+						  while(opera->next!=NULL)
+						  {
+							 opera->next=popo(opera->next);
+							 ch=m;
+							 //if(u=='%')
+							//	 break;
+							 if(ch=='*'||ch=='/')
+							 {
+								 strcpy(string,"(");
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str2,z);
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str1,z);
+								 strcat(string,str1);
+								 d[0]=ch;
+								 d[1]='\0';
+								 strcat(string,d);
+								 strcat(string,str2);
+								 strcat(string,")");
+								 chuchu->next=pushchu(chuchu->next,string);
+							 }
+							 else
+							 {
+								 opera->next=pusho(opera->next,ch);
+								 break;
+							 }
+						 }
+						 opera->next=pusho(opera->next,s1[i]);
+						 break;
+
+					case '*':u='0'; 
+						 while(opera->next!=NULL)
+						  {
+							  
+							 opera->next=popo(opera->next);
+							 ch=m;
+							 //if(u=='%')
+							//	  break;
+							 if(ch=='*'||ch=='/')
+							 {
+								 strcpy(string,"(");
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str2,z);
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str1,z);
+								 strcat(string,str1);
+								 d[0]=ch;
+								 d[1]='\0';
+								 strcat(string,d);
+								 strcat(string,str2);
+								 strcat(string,")");
+								 chuchu->next=pushchu(chuchu->next,string);
+							 }
+							 else
+							 {
+								 opera->next=pusho(opera->next,ch);
+								 break;
+							 }
+						 }
+						 opera->next=pusho(opera->next,s1[i]);
+						 break;
+
+					case '+':u='0'; 
+						 while(opera->next!=NULL)
+						  {
+							 opera->next=popo(opera->next);
+							 ch=m;
+							 //if(u=='%')
+							//	 break;
+							 if(ch=='*'||ch=='/'||ch=='+'||ch=='-')
+							 {
+								 strcpy(string,"(");
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str2,z);
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str1,z);
+								 strcat(string,str1);
+								 d[0]=ch;
+								 d[1]='\0';
+								 strcat(string,d);
+								 strcat(string,str2);
+								 strcat(string,")");
+								 chuchu->next=pushchu(chuchu->next,string);
+							 }
+							 else
+							 {
+								 //opera->next=pusho(opera->next,ch);
+								 break;
+							 }
+							 
+						 }
+						 opera->next=pusho(opera->next,s1[i]);
+						 break;
+					case '-' :u='0';
+						 while(opera->next!=NULL)
+						 {
+							 opera->next=popo(opera->next);
+							 ch=m;
+							 //if(u=='%')
+							//	  break;
+							 if(ch=='*'||ch=='/'||ch=='+'||ch=='-')
+							 {
+								 strcpy(string,"(");
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str2,z);
+								 chuchu->next=popchu(chuchu->next);
+								 strcpy(str1,z);
+								 strcat(string,str1);
+								 d[0]=ch;
+								 d[1]='\0';
+								 strcat(string,d);
+								 strcat(string,str2);
+								 strcat(string,")");
+								 chuchu->next=pushchu(chuchu->next,string);
+							 }
+							 else
+							 {
+								 //opera->next=pusho(opera->next,ch);
+								 break;
+							 }
+						 }
+						 opera->next=pusho(opera->next,s1[i]);
+						 break;
+				}
+			}
+		}
+		while(opera->next!=NULL)
+		{
+			opera->next=popo(opera->next);
+			ch=m;
+			chuchu->next=popchu(chuchu->next);
+			strcpy(str2,z);
+			chuchu->next=popchu(chuchu->next);
+			strcpy(str1,z);
+			strcpy(string,"(");
+			strcat(string,str1);
+			d[0]=ch;
+			d[1]='\0';
+			strcat(string,d);
+			strcat(string,str2);
+			strcat(string,")");
+			chuchu->next=pushchu(chuchu->next,string);
+
+			}
+			chuchu->next=popchu(chuchu->next);
+			strcpy(string,z);
+			//len=strlen(string);
+			//for(i=0;i<len/2;i++)
+		//	{
+				printf("%s",string);
+			//}
+			printf("\n");
+			
+	}
+	return 0;
+}

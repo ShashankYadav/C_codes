@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+	int sample;
+	scanf("%d",&sample);
+	while(sample>0)
+	{
+		int n=1,num=00;
+		scanf("%d",&n);
+		num=(n/5)+(n/25)+(n/125)+(n/625)+(n/3125)+(n/15625)+(n/78125);
+		printf("%d\n",num);
+		sample--;
+	}
+	return 0;
+}

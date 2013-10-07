@@ -1,0 +1,41 @@
+#include<stdio.h>
+int main()
+{
+	int s=0,i,k,j;
+	scanf("%d",&s);
+	for(i=0;i<=s;i++)
+	{
+		char c;
+		int l;
+		scanf("%c",&c);
+		while(c!='\n')
+		{
+			l=(int)c-48;
+			if(c=='1')
+				k=2;
+			else if(c=='2')
+				k=3;
+			else if(c=='3')
+				k=5;
+			else if(c=='4')
+				k=7;
+			else if(c=='5')
+				k=11;
+			else if(c=='6')
+				k=13;
+			else if(c=='7')
+				k=17;
+			else if(c=='8')
+				k=19;
+			else if(c=='9')
+				k=23;
+			for(j=0;j<k;j++)
+				printf("x");
+			printf("%d\n",l);
+			scanf("%c",&c);
+			
+		}
+
+	}
+	return 0;
+}

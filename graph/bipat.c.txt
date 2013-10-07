@@ -1,0 +1,38 @@
+int bipart(int v)
+{
+      int w, bipartite=0;/* colour = 0 (not visited), =1 (blue), = 2 (red) */
+     count = count + 1;
+     sequence[count] = v;
+     visit[v] = 1;
+     
+     if(colour[v] == 0) /* Starting vertex would have not been visited */
+     colour[v] = 1;
+     
+     for(w=1; w<=V; w++)
+     {
+              if(a[v][w] == 1 && visit[w] == 0 && colour[w] == 0) /* Adjacent vertex which has not been visited and coloured */
+              {
+                         parent[w] = v;     
+                         if(colour[v] == 1)
+                         colour[w] = 2;
+                         else
+                         colour[w] = 1;
+                         bipart(w);
+              }
+
+              else if(a[v][w] == 1 && visit[w] == 1 && colour[w] == colour[v]) /*Adjacent vertex visited and of similar colour as parent*/
+              {
+                   bipartite = bipartite + 1;
+                   printf("\nThe graph is not a bipartite graph.");
+                   return bipartite;
+              }
+
+              else if(a[v][w] == 1 && visit[w] == 1 && colour [w] != colour[v]) /*Adjacent vertex visited and of different colour as parent*/
+              {
+                   parent[w] = v;
+                   bipart(w);
+              }
+     }
+     
+     return bipartite;
+}

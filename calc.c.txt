@@ -1,0 +1,107 @@
+for(i=0;i<len;i++)
+{
+	if(s1[i]=='+'||s1[i]=='-'||s1[i]=='/'||s1[i]=='*')
+	{
+		opo[l++]=s1[i];
+		switch(s1[i])
+		{
+			case '+':if(opo[l-1]=='+'||opo[l-1]=='-'||opo[l-1]=='*'||opo[l-1]=='/')
+				 {
+					 if(nx<2)
+					 {
+						 while(l!=0)
+						 {
+							 num1=numu[nx-1];
+							 num2=numu[nx-2];
+							 nx=nx-2;
+							 ans=cal(num1,num2,opo[l-1]);
+							 numu[nx++]=ans;
+							 l--;
+						 }
+					 }
+					 else
+					 {
+						 opo[l++]='+';
+					 }
+				 }
+				 break;
+			case'*':if(opo[l-1]=='*'||opo[l-1]=='/')
+				{
+					if(nx<2)
+					{
+						l--;
+						while(l!=0&&(opo[l]!='+'||opo[l]!='-'))
+						{
+							num1=numu[nx-1];
+							num2=numu[nx-2];
+							nx=nx-2;
+							ans=cal(num1,num2,opo[l]);
+							numu[nx++]=ans;
+							l--;
+						}
+					}
+					else
+					{
+						opo[l++]='*';
+					}
+				}
+				break;
+			case '-':if(opo[l-1]=='+'||opo[l-1]=='-'||opo[l-1]=='*'||opo[l-1]=='/')
+				 {
+					 while(l!=0)
+					 {
+						 num1=numu[nx-1];
+						 num2=numu[nx-2];
+						 nx=nx-2;
+						 ans=cal(num1,num2,opo[l-1]);
+						 numu[nx++]=ans;
+						 l--;
+					 }
+				 }
+				 break;
+			case '/':if(opo[l-1]=='*'||opo[l-1]=='/')
+				 {
+					 l--;
+					 while(l!=0&&(opo[l]!='+'||opo[l]!='-'))
+					 {
+						 num1=numu[nx-1];
+						 num2=numu[nx-2];
+						 nx=nx-2;
+						 ans=cal(num1,num2,opo[l]);
+						 numu[nx++]=ans;
+						 l--;
+					 }
+				 }
+				 break;
+		}
+	}
+
+	else if(s1[i]!=' ')
+	{
+		printf("number\n");
+		dx=0;
+		nu=0;
+		if(s[i+1]!='\0')
+		{
+			while((s1[i+1]!=' '&&(s1[i+2]!='+'||s1[i]!='-'||s1[i]!='/'||s1[i]!='*')))
+			{
+				tem[dx++]=s1[i];
+				i++;
+			}
+			tem[dx++]=s[i];
+			for(v=dx-1;v>0;v--)
+			{
+				nu=nu*10+(tem[v]-'0');
+			}
+			numu[nx++]=nu;
+			printf("numu:%lf\n",nu);
+		}
+		else
+		{
+			numu[nx++]=s1[i]-'0';
+			printf("num:%lf\n",numu[nx-1]);
+		}
+	}
+
+}
+

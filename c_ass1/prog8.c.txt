@@ -1,0 +1,32 @@
+#include<stdio.h>
+int main()
+{
+	int sample=1;
+	scanf("%d",&sample);
+	while(sample>0)
+	{
+		int num2=1,num=1,diff=0,n=0;
+		scanf("%d",&n);
+		if(n==1)
+			printf("1\n");
+		else if(n==2)
+			printf("1\n");
+		else
+		{
+			while(num*2<n)
+			{
+				num*=2;
+			}
+			num2=num*2;
+			if((n-num)<(-(n-num2))&&(n-num!=0)&&(num2-n!=0))
+				diff=n-num;
+			else if((n-num)>(-(n-num2))&&(n-num!=0)&&(num2-n!=0))
+				diff=-(n-num2);
+			else
+				diff=n-(num2/2);
+			printf("%d\n",diff);
+		}
+		sample--;
+	}
+	return 0;
+}

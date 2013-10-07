@@ -1,0 +1,50 @@
+#include<stdio.h>
+int main()
+{
+	int sample=1,k=0;
+	scanf("%d",&sample);
+	for(k=0;k<sample;k++)
+	{
+		int i=0,j=0,digit=0,counter=1,mcounter=0,flag=0;
+		char n;
+		scanf("%c",&n);
+		if(n=='\n')
+			scanf("%c",&n);
+		while(n!='\n')
+		{
+			
+			digit=(int)n-48;
+			
+			for(i=2;i<24;i++)
+			{
+				counter=0;
+				for(j=1;j<i;j++)
+				{
+					if(i%j==0)
+					{
+						counter++;
+						
+					}
+
+	
+				}	
+				if(counter==1)
+					mcounter++;
+				if(mcounter==digit)
+				{
+					for(j=0;j<i;j++)
+					printf("x");
+					printf("%d\n",digit);
+					break;
+				}
+		
+			}
+			
+			mcounter=0;
+			scanf("%c",&n);
+		}
+	}
+	
+	return 0;
+}
+

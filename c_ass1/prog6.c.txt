@@ -1,0 +1,42 @@
+#include<stdio.h>
+int main()
+{
+	int sample=1;
+	scanf("%d",&sample);
+	if(sample<=0)
+	{
+		printf("invalid input");
+		return 0;
+	}
+
+	while(sample>0)
+	{
+		int n=1,a=0,b=1,c=1,num=2,temp=0,i=0;
+		scanf("%d",&n);
+		if(n<=0)
+		{
+			printf("invalid input");
+			return 0;
+		}
+		else if(n==1)
+			printf("%d\n",a);
+		else if(n==2)
+			printf("%d\n",b);
+		else if(n==3)
+			printf("%d\n",c);
+		else
+		{
+			for(i=0;i<n-3;i++)
+			{
+				num=a+b+c;;
+				a=b;
+				b=c;
+				c=num;
+			}
+		
+			printf("%d\n",num);
+		}
+		sample--;
+	}
+	return 0;
+}

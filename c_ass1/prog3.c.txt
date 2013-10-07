@@ -1,0 +1,28 @@
+#include<stdio.h>
+int main()
+{
+	int sample=1;
+	/*printf("enter the number of samples\n");*/
+	scanf("%d",&sample);
+	while(sample>0)
+	{
+		int i=0,j=0,line=0,col=0,pnum=1;
+		/*printf("enter the number of lines you want to print\n");*/
+		scanf("%d",&line);
+		col=line;
+		for(i=0;i<line;i++)
+		{
+			for(j=col;j>0;j--)
+			{
+				if(pnum==10)
+				pnum=1;
+				printf("%d",pnum++);
+			}
+			col--;
+			printf("\n");
+		}
+		sample--;
+	}
+	return 0;
+}
+

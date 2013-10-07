@@ -1,0 +1,201 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct stud
+{
+	int data;
+	struct stud *next;
+};
+typedef struct stud s;
+void print(s*);
+s* insert(s* , int);
+s* merge(s *aRef,s *bRef)
+{
+	s *dest = (s*)malloc(sizeof(s));
+	dest->next = NULL;
+
+	while(aRef!=NULL && bRef!=NULL)
+	{
+
+		if(aRef->data < bRef->data)
+		{
+			insert(dest,aRef->data);
+			aRef = aRef->next;
+		}
+		else 
+		{
+			insert(dest, bRef->data);
+			bRef = bRef->next;
+		}
+
+	}
+
+	if(aRef!=NULL)
+		while(aRef!=NULL)
+		{
+			insert(dest,aRef->data);
+			aRef = aRef->next;
+			
+		}
+	if(bRef!=NULL)
+		while(bRef!=NULL)
+		{
+			insert(dest, bRef->data);
+			bRef = bRef->next;
+		}
+	return dest;
+}
+s* insert(s* start,int d)
+{
+	s *new,*pre,*temp;
+	new=(s*)malloc(sizeof(s));
+	new->next=NULL;
+	pre=NULL;
+	new->data=d;
+	temp=start;
+	if(start==NULL)
+	{
+		start=new;
+		return start;
+	}
+	while(start!=NULL&&start->data<d)
+	{
+		pre=start;
+		start=start->next;
+	}
+	if(pre==NULL)
+	{
+		new->next=start;
+		return new;
+	}
+	else
+	{
+		pre->next=new;
+		new->next=start;
+	}
+	return temp;
+	
+}
+s* inter(s* list)
+{
+	s* temp;
+	s* inte=(s*)malloc(sizeof(s));
+	inte->data=0;
+	inte->next=NULL;
+	temp=list;
+	int prev=list->data;
+	list=list->next;
+	while(list->next!=NULL)
+	{
+		//printf("prev %d list->data: %d\n",prev,list->data);
+		if(list->data==prev)
+		{
+			insert(inte,list->data);
+			list=list->next;
+		}
+		else
+		{
+			prev=list->data;
+			list=list->next;
+		}
+	}
+	if(list!=NULL)
+	{
+		if(list->data==prev)
+		{
+			insert(inte,list->data);
+		}
+	}
+	print(inte->next);
+	return temp;
+}
+s* unio(s* list)
+{
+	s* temp;
+	s* un=(s*)malloc(sizeof(s));
+	un->data=0;
+	un->next=NULL;
+	temp=list;
+	int prev,f=0;
+	prev=list->data;
+	insert(un,prev);
+	list=list->next;
+	while(list->next!=NULL)
+	{
+		//printf("prev: %d list->data %d\n",prev,list->data);
+		if(list->data==prev)
+		{
+			list=list->next;
+		}
+		else
+		{
+			insert(un,list->data);
+			prev=list->data;
+			list=list->next;
+		}
+	}
+	if(list!=NULL)
+	{
+		if(list->data!=prev)
+		{
+			insert(un,list->data);
+		}
+	}
+	print(un->next);
+	return temp;
+
+}
+void print(s *start)
+{
+	while(start->next!=NULL)
+	{
+		printf("%d ",start->data);
+		start=start->next;
+	}
+	printf("%d",start->data);
+	printf("\n");
+	return;
+}
+int main()
+{
+	int i,k,times;
+	scanf("%d",&times);
+	for(k=0;k<times;k++)
+	{
+		int num;
+		s *st,*st1,*m;
+		st=(s*)malloc(sizeof(s));
+		st->data=0;
+		st->next=NULL;
+		st1=(s*)malloc(sizeof(s));
+		st1->data=0;
+		st1->next=NULL;
+		m=(s*)malloc(sizeof(s));
+		m->data=0;
+		m->next=NULL;
+		while(1)
+		{
+			scanf("%d",&num);
+			if(num==-1)
+				break;
+			else
+			{
+				st->next=insert(st->next,num);
+			}
+		}
+		while(1)
+		{
+			scanf("%d",&num);
+			if(num==-1)
+				break;
+			else
+			{
+				st1->next=insert(st1->next,num);
+			}
+		}
+		m=merge(st->next,st1->next);
+		m=unio(m->next);
+		m=inter(m);
+
+	}
+	return 0;
+}

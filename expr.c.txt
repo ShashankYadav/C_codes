@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int k,times;
+	char s[1000],c;
+	scanf("%d%c",&times,&c);
+	for(k=0;k<times;k++)
+	{
+		int i,l=0,len=0,n=0,num2,ch=0,o=0;
+		char s1[1000];
+		scanf("%[^\n]%c",s,&c);
+		len=strlen(s);
+		printf("%s\n",s);
+		int num[1000][3],stnum[100];
+		char op[1000],stchar[100];
+		for(i=0;i<len;i++){
+			if(s[i]==' ')
+				continue;
+			else
+				s1[l++]=s[i];}
+		s1[l]=='\0';
+		printf("%s",s1);
+		len=strlen(s1);
+		for(i=0;i<len;i++)
+		{
+			if(s1[i]!='+'||s1[i]!='-'||s1[i]!='/'||s1[i]!='*')
+			{
+				num[n][0]=s1[i]-'0';
+				num[n][1]=0;
+				num[n++][2]=0;
+				stnum[l++]=s1[i]-'0';
+			}
+			else
+			{
+				switch(s1[i])
+				{
+					case '*':op[o++]=s1[i];
+						 num2=s[i+1]-'0';
+						 num[n][0]=num2;
+						 num[n][1]=1;
+						 num[n][2]++;
+						 num[n-1][1]=-1;
+						 num[n-1][2]=1;
+						 n++;
+						 --l;
+						 stnum[l]=stnum[l]*num2;
+						 i++;
+						 break;
+					case '/':op[o++]=s1[i];
+						 num2=s[i+1]-'0';
+						 num[n][0]=num2;
+						 num[n][1]=1;
+						 num[n][2]++;
+						 num[n-1][1]=-1;
+						 num[n-1][2]=1;
+						 n++;
+						 --l;
+						 stnum[l]=stnum[l]/num2;
+						 i++;
+						 break;
+					case '+':stchar[ch++]=s1[i];
+						 op[o++]=s1[i];
+						 break;
+					case '-':stchar[ch++]=s1[i];
+						 op[o++]=s1[i];
+						 break;
+				}
+			}
+
+			`
+		}
+
+						 
+		}
+
+}

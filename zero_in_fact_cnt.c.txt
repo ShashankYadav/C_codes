@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+	double n=1,num=0,fact=1,zero=0,i=0,j=0;
+	scanf("%lf",&n);
+	for(i=0;i<n;i++)
+	{
+		printf("enter the number\n");
+		scanf("%lf",&num);
+		for(j=num;j>0;j--)
+			fact*=j;
+		while((int)fact%10==0)
+		{
+			zero++;
+			fact=(int)fact/10;
+		}
+
+		printf("the number of zeroes in %lf! is %lf\n",(int)num,(int)zero);
+	}
+	return 0;
+}

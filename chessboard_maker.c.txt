@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main()
+{
+	int time=1;
+	/*printf("enter the number of samples\n");*/
+	scanf("%d",&time);
+	while(time>0)
+	{
+		 
+	        int n=1,i=0,j=0,color=0,rc=0,color2=0;
+	        char ch='W';
+		/*printf("enter the size of a side and color of the first block of a square\n");*/
+		scanf("%d%c",&n,&ch);
+		if(ch=='W')
+			color=0;
+		else
+			color=1;
+		for(i=0;i<n;i++)
+		{
+			if(rc%2==0)
+				color2=color;
+			else
+				color2=1-color;
+			for(j=0;j<n;j++)
+			{
+				if(color2==0)
+				{
+					printf("W");
+					color2=1;
+				}
+				else
+				{
+					printf("B");
+					color2=0;
+				}
+			}
+			printf("\n");
+			rc++;
+		}
+		time--;
+	}
+	return 0;
+}
